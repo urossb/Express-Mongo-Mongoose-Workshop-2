@@ -1,6 +1,5 @@
 const express = require('express');
 const Campsite = require('../models/campsite');
-
 const campsiteRouter = express.Router();
 
 campsiteRouter.route('/')
@@ -213,5 +212,4 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
     .catch(err => next(err));
 });
 
-module.exports = campsiteRouter;
 module.exports = campsiteRouter;
