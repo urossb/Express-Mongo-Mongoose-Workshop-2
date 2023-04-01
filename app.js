@@ -1,3 +1,5 @@
+//https://www.npmjs.com/package/nodemon - check this site for adding other file extensions such as html
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,6 +13,20 @@ const partnerRouter = require('./routes/partnerRouter');
 const promotionRouter = require('./routes/promotionRouter');
 
 var app = express();
+
+const mongoose = require('mongoose');
+
+const url = 'mongodb://localhost:27017/nucampsite';
+const connect = mongoose.connect(url, {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+});
+
+connect.then(() => console.log('Connected correctly to server'), 
+    err => console.log(err)
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
