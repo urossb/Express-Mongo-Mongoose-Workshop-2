@@ -16,6 +16,16 @@ const promotionRouter = require('./routes/promotionRouter');
 
 var app = express();
 
+// Secure traffic only
+app.all('*', (req, res, next) => {
+  if (req.secure) {//if this is already through HTTPS, then pass on to the next middleware
+    return next();
+  } else {//if not HTTPS aka secure, redirect to the secure port
+      console.log(`Redirecting to: https://${req.hostname}:${app.get('secPort')}${req.url}`);
+      res.redirect(301, `https://${req.hostname}:${app.get('secPort')}${req.url}`);
+  }
+});
+
 const mongoose = require('mongoose');
 
 const url = config.mongoUrl;
