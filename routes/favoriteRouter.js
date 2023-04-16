@@ -22,7 +22,9 @@ favoriteRouter.route('/')
     Favorite.findOne( {user:req.user._id} )
     .then( favorite => {
         if( !favorite ) {//if there isn't a favorites document, add the favorites
-            Favorite.create({user:req.user._id}, req.body.campsites)
+            //we want the campsite id, not the full campsite
+            const campsitesIdArray = req.body.map( campsite => {return campsite._id})
+            Favorite.create({user:req.user._id, campsites:campsitesIdArray})
             .then(favorite => {
                 console.log('Favorites Created ', favorite);
                 res.statusCode = 200;
